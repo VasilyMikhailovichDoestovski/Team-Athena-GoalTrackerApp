@@ -32,7 +32,7 @@ header{
     border-radius: 5px;
     box-shadow: 2px 2px 5px grey;
 }
-.topbtn a.active:hover{
+.top a.active:hover{
     background-color: rgb(22, 126, 82);
 }
 
@@ -130,7 +130,7 @@ h1 span{
     padding-top: 100px;
 }
 .CTA-head{
-    font-size: 1.5rem;   
+    font-size: 1.5rem;
 }
 .list{
     margin-top: 20px;
@@ -177,13 +177,13 @@ h1 span{
     height: 380px;
     position: absolute;
     top: 40px;
-    left: 105px; 
+    left: 105px;
     z-index: 0;
-}  
+}
 #shadow1{
     position: relative;
-}                 
- 
+}
+
 /*----------SECTION FOUR STYLING------------*/
 .testimonial{
     background-color: #76E5BD;
@@ -237,6 +237,9 @@ footer{
     flex-direction: row;
     padding-left: 70px;
 }
+.footer-section h3{
+    padding-left: 20px;
+}
 .footer-section{
     width: 100%;
 }
@@ -265,8 +268,6 @@ footer{
     background-color: rgb(22, 126, 82);
 }
 .team{
-    color: black;
-    background-color: #76E5BD;
     text-align: center;
 }
 

@@ -1,0 +1,287 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>Athena Goal Tracker</title>
+    <link rel="stylesheet" href="css/home.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+	<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+
+    <style>
+        .card .card-body {
+            padding: 10px 10px;
+        }
+        .add-items {
+            margin-bottom: 0rem;
+            overflow: hidden;
+        }
+        .form-group {
+            margin-bottom: 0rem;
+        }
+        .nav-link{
+            font-weight: bold;
+        }
+        .navbar-brand{
+            font-weight: bold;
+            color: #FFF !important;
+        }
+        .navbar{
+            position: fixed;
+            z-index: 100;
+        }
+        .card-statistics h1{
+            color: #6AB21C !important;
+        }
+
+        @media screen and (min-width: 1000px){
+            .page-body-wrapper{
+                position: relative;
+                top: 50px;
+            }
+        }
+
+    </style>
+</head>
+
+<body>
+
+    <div class="container-scroller" id="app">
+            <!-- Top Nav start -->
+            <div class="navbar horizontal-layout col-lg-12 col-12 p-0">
+                <div class="nav-top flex-grow-1">
+                    <div class="container d-flex flex-row h-100 align-items-center">
+                        <div class="text-center navbar-brand-wrapper d-flex align-items-center">
+                            <a class="navbar-brand brand-logo" href="#">Athena</a>
+                            <a class="navbar-brand brand-logo-mini" href="#">Athena</a>
+                        </div>
+                        <div class="navbar-menu-wrapper d-flex align-items-center justify-content-between flex-grow-1">
+                            <form class="search-field d-none d-md-flex" action="#">
+                                <div class="form-group mb-0">
+                                    <div class="input-group">
+                                        <div class="input-group-prepend">
+                                            <span class="input-group-text"><i class="icon-magnifier"></i></span>
+                                        </div>
+                                        <input type="text" class="form-control" placeholder="Search goal here...">
+                                    </div>
+                                </div>
+                            </form>
+
+                            <ul class="navbar-nav navbar-nav-right mr-0 ml-auto">
+                                <li class="nav-item nav-profile dropdown">
+                                    <a class="nav-link " href="#">
+                                        <i class="icon-logout text-primary mr-2"></i> Logout
+                                    </a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- Top Nav ends -->
+
+            <!-- partial -->
+            <div class="container-fluid page-body-wrapper">
+                <div class="main-panel">
+                    <div class="content-wrapper">
+
+                        <!-- Statistics starts -->
+                        <div class="row">
+                            <div class="col-12 grid-margin">
+                                <div class="card card-statistics">
+                                    <div class="card-body p-0">
+                                        <div class="row">
+                                            <div class="col-6 col-md-3 col-lg-3">
+                                                <div class="d-flex justify-content-between border-right card-statistics-item">
+                                                    <div>
+                                                        <h1>{{statistics.totalGoals}}</h1>
+                                                        <p class="text-muted mb-0">Total Goals</p>
+                                                    </div>
+                                                    <i class="icon-layers text-primary icon-lg"></i>
+                                                </div>
+                                            </div>
+                                            <div class="col-6 col-md-3 col-lg-3">
+                                                <div class="d-flex justify-content-between border-right card-statistics-item">
+                                                    <div>
+                                                        <h1>{{statistics.totalTodos}}</h1>
+                                                        <p class="text-muted mb-0">Total Todos</p>
+                                                    </div>
+                                                    <i class="icon-people text-primary icon-lg"></i>
+                                                </div>
+                                            </div>
+                                            <div class="col-6 col-md-3 col-lg-3">
+                                                <div class="d-flex justify-content-between border-right card-statistics-item">
+                                                    <div>
+                                                        <h1>{{statistics.pendingTodos}}</h1>
+                                                        <p class="text-muted mb-0">Pending Todos</p>
+                                                    </div>
+                                                    <i class="icon-pin text-primary icon-lg"></i>
+                                                </div>
+                                            </div>
+                                            <div class="col-6 col-md-3 col-lg-3">
+                                                <div class="d-flex justify-content-between card-statistics-item">
+                                                    <div>
+                                                        <h1>{{statistics.completedTodos}}</h1>
+                                                        <p class="text-muted mb-0">Completed Todos</p>
+                                                    </div>
+                                                    <i class="icon-refresh text-primary icon-lg"></i>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- Statistics ends -->
+
+
+
+                        <div class="row">
+                            <!-- Add Goal Starts -->
+                            <div class="col-12 grid-margin stretch-card">
+                                <div class="card">
+                                    <div class="card-body">
+                                        <form class="" @submit.prevent="addGoal">
+                                            <div class="form-group">
+                                                <div class="input-group">
+                                                    <input type="text" v-model="newGoal" class="form-control" placeholder="Add a new goal here.." aria-label="Recipient's username">
+                                                    <div class="input-group-append">
+                                                        <button class="btn btn-sm btn-success" type="submit">
+                                                                <i class="fa fa-plus"></i> Add Goal
+                                                        </button>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- Add Goal Ends -->
+
+
+                            <!-- List goals start -->
+                            <div class="col-lg-4 grid-margin"  v-for="(goal, id) in goals" :key="id">
+                                <div class="card px-3">
+                                    <div class="card-body">
+                                        <h4 class="card-title">{{goal.title}}</h4>
+                                        <form class="" @submit.prevent="addTodo(id)">
+                                            <div class="add-items d-flex">
+                                                <input type="text" class="form-control todo-list-input" v-model="goal.newTodo" placeholder="Add a todo item">
+                                                <!-- <button class="add btn btn-primary font-weight-bold todo-list-add-btn" id="add-task">Add</button> -->
+                                                <button type="submit" class="btn btn-success btn-sm icon-btn ml-2 mb-2">
+                                                    <i class="fa fa-plus"></i>
+                                                </button>
+                                            </div>
+                                        </form>
+
+                                        <!-- List todo starts -->
+                                        <div class="list-wrapper">
+                                            <ul class="d-flex flex-column-reverse todo-list">
+                                                <li  v-for="(todo, todoId) in goal.todos" :key="todoId">
+                                                    <!-- <div class="form-check"> -->
+                                                    <div class="">
+                                                        <!-- <label class="form-check-label"> -->
+                                                        <label class="">
+                                                            <input :checked="todo.completed" class="" type="checkbox"> {{todo.todo}}
+                                                            <!-- <i class="input-helper"></i> -->
+                                                        </label>
+                                                    </div>
+                                                    <a href="#" class="remove " @click.prevent="deleteTodo(id, todoId)"><i class="fa fa-close" ></i></a>
+                                                </li>
+                                            </ul>
+                                        </div>
+                                        <!-- List todo ends -->
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- List goals ends -->
+
+                        </div>
+
+
+
+                    </div>
+                    <!-- content-wrapper ends -->
+
+
+                    <!-- Footer starts -->
+                    <footer class="footer">
+                        <div class="w-100 clearfix">
+                            <span class="text-muted d-block text-center text-sm-left d-sm-inline-block"><a href="#" target="_blank">Athena Goal Tracker</a>. All rights reserved.</span>
+                        </div>
+                    </footer>
+                    <!-- Footer ends -->
+                </div>
+                <!-- main-panel ends -->
+            </div>
+            <!-- page-body-wrapper ends -->
+        </div>
+
+
+        <script>
+            const app = new Vue({
+                el: '#app',
+                data: {
+                    backend: 'http://127.0.0.1:8001/',
+                    dashboard: 'http://127.0.0.1:8081/',
+                    loading: false,
+                    success: null,
+                    errors: null,
+                    authenticated: false,
+
+                    newGoal: '',
+                    newTodo: '',
+
+                    goals:{
+
+                    },
+
+                    goals:[],
+
+                    statistics: {
+                        totalGoals: 2,
+                        totalTodos: 0,
+                        pendingTodos: 0,
+                        completedTodos: 0
+                    }
+                },
+
+                methods: {
+                    addGoal(){
+                        let newGoal = {id: this.goals.length+1, title: this.newGoal, todos:[], newTodo: ''}
+                        this.goals.push(newGoal);
+                        console.log(this.goals);
+                    },
+
+                    addTodo(goal){
+                        let newTodo = {id: this.goals[goal].todos.length+1, todo:this.goals[goal].newTodo, completed: false};
+                        this.goals[goal].todos.push(newTodo);
+                        console.log(this.goals);
+                    },
+
+                    deleteGoal(goal){
+                        this.goals[goal].splice(goal, 1);
+                    },
+                    deleteTodo(goal, todo){
+                        console.log(goal, todo)
+                        this.goals[goal].todos.splice(todo, 1);
+                    },
+                    completeTodo(goal, todo){
+                        this.goals[goal].todos.completed = !this.goals[goal].todos.completed;
+                    }
+                },
+
+                created(){
+                    //...
+                },
+
+                mounted () {
+                    //...
+                }
+            })
+        </script>
+  </body>
+  <html>
